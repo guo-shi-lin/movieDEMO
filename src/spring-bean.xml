@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans.xsd">  
+      
+    <bean id="userDAOBean" class="com.movie.dao.impl.UserDAOImpl">  
+        <property name="sessionFactory" ref="sessionFactory"></property>  
+    </bean> 
+    <bean id="userServiceBean" class="com.movie.service.impl.UserServiceImpl">  
+        <property name="userDAO" ref="userDAOBean"></property>  
+    </bean>  
+  
+    <bean name="userService" parent="transactionProxy">  
+        <property name="target" ref="userServiceBean"></property>  
+    </bean> 
+  <!-- ++++++++++++++++ -->
+   <bean id="adminDaoBean" class="com.movie.dao.impl.AdminDAOImpl">  
+        <property name="sessionFactory" ref="sessionFactory"></property>  
+    </bean>   
+     <bean id="adminServiceBean" class="com.movie.service.impl.AdminServiceImpl">  
+        <property name="adminDao" ref="adminDaoBean"></property>  
+    </bean>  
+    <bean name="adminService" parent="transactionProxy">  
+        <property name="target" ref="adminServiceBean"></property>  
+    </bean>
+   <!-- 电影++++++++++++ -->
+   <bean id="movieDAOBean" class="com.movie.dao.impl.MovieDAOImpl">  
+        <property name="sessionFactory" ref="sessionFactory"></property>  
+    </bean>   
+     <bean id="movieServiceBean" class="com.movie.service.impl.MovieServiceImpl">  
+        <property name="movieDAO" ref="movieDAOBean"></property>  
+    </bean>  
+    <bean name="movieService" parent="transactionProxy">  
+        <property name="target" ref="movieServiceBean"></property>  
+    </bean>
+    <!-- 记录++++++++++++ -->
+    <bean id="recordDAOBean" class="com.movie.dao.impl.RecordDAOImpl">  
+        <property name="sessionFactory" ref="sessionFactory"></property>  
+    </bean>   
+     <bean id="recordServiceBean" class="com.movie.service.impl.RecordServiceImpl">  
+        <property name="recordDAO" ref="recordDAOBean"></property>  
+    </bean>  
+    <bean name="recordService" parent="transactionProxy">  
+        <property name="target" ref="recordServiceBean"></property>  
+    </bean>
+</beans>  
